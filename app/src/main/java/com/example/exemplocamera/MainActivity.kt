@@ -13,12 +13,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var btnCapturar: Button
     lateinit var imgFoto: ImageView
 
-    val register = registerForActivityResult(
-        ActivityResultContracts.TakePicturePreview()
-    ) { image: Bitmap? ->
-        imgFoto.setImageBitmap(image)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,7 +21,15 @@ class MainActivity : AppCompatActivity() {
         imgFoto = findViewById(R.id.imgFoto)
     }
 
+    // objeto de registro do evento de tirar foto
+    val register = registerForActivityResult(
+        ActivityResultContracts.TakePicturePreview()
+    ) { image: Bitmap? ->
+        imgFoto.setImageBitmap(image)
+    }
+
+    // evento (colocar no 'onClick' do botão)
     fun capturarFoto(view: View) {
-        register.launch(null)
+        register.launch(null) // disparar o evento registrado
     }
 }
